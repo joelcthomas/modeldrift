@@ -100,17 +100,32 @@ df2.select('pid', 'qualitycheck_time', 'quality').write.format("delta").mode("ap
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ### Send data for range: > 2019-07-21 00:00:00 
+# MAGIC ### Send data for range: 2019-07-21 00:00:00 - 2019-08-01 00:00:00
 
 # COMMAND ----------
 
 # Data after 2nd model deployment
-df3 = df.filter(df.timestamp>F.unix_timestamp(F.lit('2019-07-21 00:00:00')).cast('timestamp'))
+df3 = df.filter( (df.timestamp>=F.unix_timestamp(F.lit('2019-07-21 00:00:00')).cast('timestamp')) & (df.timestamp<=F.unix_timestamp(F.lit('2019-08-01 00:00:00')).cast('timestamp')))
 
 # COMMAND ----------
 
 df3.select('pid', 'process_time', 'temp', 'pressure', 'duration').write.format("delta").mode("append").option("maxRecordsPerFile", 50).save(sensor_reading_blob)
 df3.select('pid', 'qualitycheck_time', 'quality').write.format("delta").mode("append").option("maxRecordsPerFile", 50).save(product_quality_blob)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ### Send data for range: > 2019-08-01 00:00:00 
+
+# COMMAND ----------
+
+# Data after 2nd model deployment
+df4 = df.filter(df.timestamp>F.unix_timestamp(F.lit('2019-08-01 00:00:00')).cast('timestamp'))
+
+# COMMAND ----------
+
+df4.select('pid', 'process_time', 'temp', 'pressure', 'duration').write.format("delta").mode("append").option("maxRecordsPerFile", 50).save(sensor_reading_blob)
+df4.select('pid', 'qualitycheck_time', 'quality').write.format("delta").mode("append").option("maxRecordsPerFile", 50).save(product_quality_blob)
 
 # COMMAND ----------
 

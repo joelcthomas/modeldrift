@@ -2,7 +2,6 @@
 import mlflow
 import mlflow.mleap
 import mlflow.spark
-mlflow.set_experiment(mlflow_exp_loc)
 mlflowclient = mlflow.tracking.MlflowClient()
 
 # COMMAND ----------
@@ -54,27 +53,36 @@ def get_run_details(runid):
 def get_model_production(mlflow_experiment_id):
   mlflow_search_query = "tags.state='production'"
   run = mlflowclient.search_runs([mlflow_experiment_id], mlflow_search_query)
-  runid = run[0].info.run_uuid
-  
-  return get_run_details(runid)
+  if run:
+    runid = run[0].info.run_uuid
+    return get_run_details(runid)
+  else:
+    return 0
 
 # COMMAND ----------
 
 def push_model_production(mlflow_experiment_id, runid, userid, start_date):
   
-  prod_run_details = get_model_production(mlflow_experiment_id)
-  terminate_model_production(prod_run_details['runid'], userid, start_date)
-  
-  mlflowclient.set_tag(runid, 'state', 'production')
-  mlflowclient.set_tag(runid, 'production_marked_by', userid)
-  mlflowclient.set_tag(runid, 'production_start', start_date)
-  mlflowclient.set_tag(runid, 'production_end', '')
-  return True
+  if runid!=0:
+    prod_run_details = get_model_production(mlflow_experiment_id)
+    if prod_run_details!=0:
+      terminate_model_production(prod_run_details['runid'], userid, start_date)
+
+    mlflowclient.set_tag(runid, 'state', 'production')
+    mlflowclient.set_tag(runid, 'production_marked_by', userid)
+    mlflowclient.set_tag(runid, 'production_start', start_date)
+    mlflowclient.set_tag(runid, 'production_end', '')
+    return True
+  else:
+    return False
 
 # COMMAND ----------
 
 def terminate_model_production(runid, userid, end_date):
-  mlflowclient.set_tag(runid, 'state', 'ex_production')
-  mlflowclient.set_tag(runid, 'production_marked_by', userid)
-  mlflowclient.set_tag(runid, 'production_end', end_date)
-  return True
+  if runid!=0:
+    mlflowclient.set_tag(runid, 'state', 'ex_production')
+    mlflowclient.set_tag(runid, 'production_marked_by', userid)
+    mlflowclient.set_tag(runid, 'production_end', end_date)
+    return True
+  else:
+    return False

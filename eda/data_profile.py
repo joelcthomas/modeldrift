@@ -4,7 +4,7 @@
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <h2><img src="/files/tables/databricks_squarelogo-e0ec9.png" width="45px"> Data Sample</h2>
+# MAGIC <h2>Data Sample</h2>
 
 # COMMAND ----------
 
@@ -13,7 +13,7 @@ display(df)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <h2><img src="/files/tables/databricks_squarelogo-e0ec9.png" width="45px"> Data Summary</h2>
+# MAGIC <h2> Data Summary</h2>
 
 # COMMAND ----------
 
@@ -22,7 +22,7 @@ display(df.describe())
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <h2><img src="/files/tables/databricks_squarelogo-e0ec9.png" width="45px"> Temperature Over Time</h2>
+# MAGIC <h2> Temperature Over Time</h2>
 
 # COMMAND ----------
 
@@ -31,7 +31,7 @@ display(df)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <h2><img src="/files/tables/databricks_squarelogo-e0ec9.png" width="45px"> Pressure Over Time</h2>
+# MAGIC <h2> Pressure Over Time</h2>
 
 # COMMAND ----------
 
@@ -40,7 +40,7 @@ display(df)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <h2><img src="/files/tables/databricks_squarelogo-e0ec9.png" width="45px"> Duration Over Time</h2>
+# MAGIC <h2> Duration Over Time</h2>
 
 # COMMAND ----------
 
@@ -49,7 +49,7 @@ display(df)
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC <h2><img src="/files/tables/databricks_squarelogo-e0ec9.png" width="45px"> Is there an easy explanation between these variables and quality? Are the variables related to each other?</h2>
+# MAGIC <h2> Is there an easy explanation between these variables and quality? Are the variables related to each other?</h2>
 
 # COMMAND ----------
 

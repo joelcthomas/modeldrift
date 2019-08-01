@@ -10,7 +10,7 @@ from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 def randomforest_model(stages, params, train, test):
   pipeline = Pipeline(stages=stages)
   
-  with mlflow.start_run(run_name=mlflow_exp_name) as ml_run:
+  with mlflow.start_run(experiment_id=mlflow_exp_id) as ml_run:
     for k,v in params.items():
       mlflow.log_param(k, v)
       

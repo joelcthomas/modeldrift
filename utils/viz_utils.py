@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import seaborn as sns
+import datetime as dt
+import matplotlib.dates as mdates
 
 # COMMAND ----------
 
@@ -23,6 +25,7 @@ def plot_confusion_matrix(confusion_matrix_uri):
 # COMMAND ----------
 
 def plot_model_quality(df):
+  
   sns.set(style='dark')
   sns.set()
   fig, ax = plt.subplots(figsize=(14,4))
@@ -49,6 +52,8 @@ def plot_model_quality(df):
       color='green', alpha=0.1, ec='red'
   )
   ax.add_patch(rect)
+  
+  ax.xaxis.set_major_locator(mdates.WeekdayLocator())
 
   fig.tight_layout()
   display(fig)
@@ -77,6 +82,13 @@ def plot_summary(df1, df2):
   ax.axvline(x='2019-07-19', linewidth=1, linestyle='--', alpha=0.3)
   ax.axvline(x='2019-08-04', linewidth=1, linestyle='--', alpha=0.3)
   ax.axvline(x='2019-08-12', linewidth=1, linestyle='--', alpha=0.0)
+  
+  ax.text(mdates.date2num(dt.datetime(2019, 7, 1)), 85, '1st model train data', fontsize=9, alpha=0.5)
+  ax.text(mdates.date2num(dt.datetime(2019, 7, 11)), 85, '1st model inference', fontsize=9, alpha=0.5)
+  ax.text(mdates.date2num(dt.datetime(2019, 7, 21)), 85, '2nd model learnt and applied', fontsize=9, alpha=0.5)
+  ax.text(mdates.date2num(dt.datetime(2019, 7, 23)), 70, 'if model not updated', fontsize=9, alpha=0.5)
+  ax.text(mdates.date2num(dt.datetime(2019, 7, 18)), 70, '1st drift', fontsize=9, alpha=0.5, ha='right')
+  ax.text(mdates.date2num(dt.datetime(2019, 8, 4)), 80, '2nd drift', fontsize=9, alpha=0.5, ha='left')
 
   ax.legend(bbox_to_anchor=(1.1, 1.05))
 
@@ -87,6 +99,8 @@ def plot_summary(df1, df2):
       color='green', alpha=0.1, ec='red'
   )
   ax.add_patch(rect)
+  
+  ax.xaxis.set_major_locator(mdates.WeekdayLocator())
 
   fig.tight_layout()
   display(fig)

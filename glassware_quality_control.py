@@ -18,7 +18,8 @@
 # MAGIC %md 
 # MAGIC ### Architecture Reference
 # MAGIC 
-# MAGIC <img src="https://publicimg.blob.core.windows.net/images/model_drift_architecture.png" width="1300">
+# MAGIC <!-- <img src="https://publicimg.blob.core.windows.net/images/model_drift_architecture.png" width="1300"> -->
+# MAGIC <img src="https://joelcthomas.github.io/modeldrift/img/model_drift_architecture.png" width="1300">
 
 # COMMAND ----------
 
@@ -87,7 +88,7 @@ display(model_df)
 
 # COMMAND ----------
 
-# MAGIC %run ./quality_modeler/generate_models
+# MAGIC %run ./glassware_quality_modeler/generate_models
 
 # COMMAND ----------
 
@@ -128,7 +129,7 @@ get_model_production(mlflow_exp_id)
 
 # COMMAND ----------
 
-# MAGIC %run ./quality_scorer/score_quality
+# MAGIC %run ./glassware_quality_scorer/score_quality
 
 # COMMAND ----------
 
@@ -209,7 +210,7 @@ display(model_df)
 
 # COMMAND ----------
 
-# MAGIC %run ./quality_modeler/generate_models
+# MAGIC %run ./glassware_quality_modeler/generate_models
 
 # COMMAND ----------
 
@@ -249,7 +250,19 @@ predict_stream = stream_score_quality(stream_sensor_reading())
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC __To reproduce this demo, push data for range > 2019-07-21 using ./demo_utils/demo_data_init __
+# MAGIC ### Assume today is 2019-08-01
+# MAGIC __To reproduce this demo, push data for range 2019-07-21 - 2019-08-01 using ./demo_utils/demo_data_init __
+
+# COMMAND ----------
+
+model_quality_summary = track_model_quality(get_product_quality(), get_predicted_quality())
+plot_model_quality(model_quality_summary)
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ### Assume today is 2019-08-12
+# MAGIC __To reproduce this demo, push data for range > 2019-08-01 using ./demo_utils/demo_data_init __
 
 # COMMAND ----------
 
@@ -263,7 +276,7 @@ plot_model_quality(model_quality_summary)
 
 # COMMAND ----------
 
-predicted_quality = score_quality(get_sensor_reading(), 'acfdba1243dd458b9780d99ad25539ce')
+predicted_quality = score_quality(get_sensor_reading(), 'd45cd111bc2d49409bb9ccd5df94507d')
 model_quality_summary = track_model_quality(get_product_quality(), predicted_quality)
 plot_model_quality(model_quality_summary)
 
@@ -273,9 +286,9 @@ plot_model_quality(model_quality_summary)
 
 # COMMAND ----------
 
-predicted_quality = score_quality(get_sensor_reading(), 'acfdba1243dd458b9780d99ad25539ce')
+predicted_quality = score_quality(get_sensor_reading(), 'd45cd111bc2d49409bb9ccd5df94507d')
 model_quality_summary_1 = track_model_quality(get_product_quality(), predicted_quality)
-predicted_quality = score_quality(get_sensor_reading(), '92846c89e8b44933b25d0e31af1c42d9')
+predicted_quality = score_quality(get_sensor_reading(), '34c33e631fd441a9be329a600550f4c1')
 model_quality_summary_2 = track_model_quality(get_product_quality(), predicted_quality)
 
 # COMMAND ----------

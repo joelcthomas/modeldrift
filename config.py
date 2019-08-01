@@ -1,21 +1,19 @@
 # Databricks notebook source
-storage_account_name = "glasswaremfg"
-storage_account_access_key = "keyxxxxxxxx=="
+# Noise for data generator
+dg_noise = {"temp_noise": 0.2, "pressure_noise": 0.2, "duration_noise": 0.2}
 
-userid = 'add_uer_here'
+userid = 'add_user'
 
-# Data paths
-sensor_reading_blob = "wasbs://aaa"
-product_quality_blob = "wasbs://bbb"
+# Data paths (replace with actual locations. Could be directly to S3, Azure blob/ADLS, or these locations mounted locally)
+sensor_reading_blob = "/mnt/tmp/sensor_reading"
+product_quality_blob = "/mnt/tmp/product_quality"
 
-predicted_quality_blob = "wasbs://ccc"
-predicted_quality_cp_blob = "wasbs://ddd"
-
+predicted_quality_blob = "/mnt/tmp/predicted_quality"
+predicted_quality_cp_blob = "/mnt/tmp/predicted_quality_checkpoint"
 
 # Modeling & MLflow settings
-mlflow_exp_loc = "/Users/<add_full_path_here>/ModelDrift_Webinar/model_registry/glassware_quality"
 mlflow_exp_name = "Glassware Quality Predictor"
-mlflow_exp_id = ""
+mlflow_exp_id = "3650654" # Replace with id from your environment
 
 model_compare_metric = 'accuracy'
 
